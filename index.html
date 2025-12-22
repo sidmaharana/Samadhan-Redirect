@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAMADHAN 2025–26 - A National Social Innovation Challenge by UPAY NGO bringing together students from IITs, IIMs, and leading institutions to co-create solutions for NGOs and grassroots communities.">
+    <meta name="keywords" content="SAMADHAN, UPAY NGO, Social Innovation, Hackathon, IIT Delhi, Social Impact">
+    <title>SAMADHAN 2025–26 | National Social Innovation Challenge by UPAY NGO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="assets/images/logo.png" alt="UPAY NGO Logo" class="logo-img">
+                <span class="logo-text">SAMADHAN 2025–26</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#themes" class="nav-link">Themes</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#speakers" class="nav-link">Speakers</a></li>
+                <li><a href="#mentors" class="nav-link">Mentors</a></li>
+                <li><a href="#partners" class="nav-link">Partners</a></li>
+                <li><a href="#submission" class="nav-link">Submission</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="assets/images/hero-banner.png" alt="SAMADHAN Hero Banner" class="hero-bg-img">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">SAMADHAN 2025–26</h1>
+            <p class="hero-tagline">Fueling Ideas | Powering Action | Changing Lives</p>
+            <p class="hero-subtitle">A National Social Innovation Challenge by UPAY NGO</p>
+            <div class="hero-cta">
+                <a href="#themes" class="btn btn-primary">Explore Themes</a>
+                <a href="#video" class="btn btn-secondary">Watch Video</a>
+                <a href="#timeline" class="btn btn-outline">View Timeline</a>
+            </div>
+        </div>
+        <a href="#countdown" class="scroll-indicator" aria-label="Scroll down">
+            <span class="scroll-arrow"></span>
+        </a>
+    </section>
+
+    <!-- Image Carousel Section -->
+    <section id="carousel" class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-slide active">
+                    <img src="assets/images/slider-01.png" alt="Community & Field Engagement">
+                    <div class="slide-caption">
+                        <h3>Community & Field Engagement</h3>
+                        <p>Connecting with grassroots communities to understand real challenges</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/slider-02.png" alt="Mentorship & Incubation">
+                    <div class="slide-caption">
+                        <h3>Mentorship & Incubation</h3>
+                        <p>Expert guidance to transform ideas into impactful solutions</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="assets/images/slider-03.png" alt="Finale Day & Impact">
+                    <div class="slide-caption">
+                        <h3>Finale Day & Impact</h3>
+                        <p>Showcasing innovations that change lives</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous slide">&#10094;</button>
+            <button class="carousel-btn next" aria-label="Next slide">&#10095;</button>
+            <div class="carousel-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="countdown-section">
+        <div class="container">
+            <h2 class="section-title">Countdown to Finale</h2>
+            <p class="countdown-venue">📅 4 January 2026 | ⏰ 9:00 AM IST | 📍 Dogra Hall, IIT Delhi</p>
+            <div class="countdown-timer" id="countdownTimer">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About SAMADHAN</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">SAMADHAN is a National Social Innovation Challenge bringing together students from IITs, IIMs, and leading institutions to co-create solutions for NGOs and grassroots communities.</p>
+                    <p>This initiative bridges the gap between academic excellence and ground-level social challenges, empowering the next generation of changemakers to develop sustainable, scalable solutions that transform lives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section id="vision" class="vision-section">
+        <div class="container">
+            <div class="vision-grid">
+                <div class="vision-card">
+                    
+                    <h3>Our Vision</h3>
+                    <p>A future where every child has a dignified childhood and equal opportunity to live, learn, and grow.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="vision-icon">🚀</div>
+                    <h3>Our Mission</h3>
+                    <p>To develop a sustainable ecosystem for underprivileged communities by enabling, educating, and empowering children.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Themes Section -->
+    <section id="themes" class="themes-section">
+        <div class="container">
+            <h2 class="section-title">Focus Themes</h2>
+            <p class="section-subtitle">Problem statements addressing critical social challenges</p>
+            <div class="themes-grid">
+                <div class="theme-card">
+                    <div class="theme-image">
+                        <img src="assets/images/theme-skill-development.png" alt="Skill Development & Market Connectivity">
+                    </div>
+                    <div class="theme-content">
+                        <h3>Skill Development & Market Connectivity</h3>
+                        <p>Creating pathways for skill enhancement and connecting communities to economic opportunities through innovative solutions.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-image">
+                        <img src="assets/images/theme-tech-impact.png" alt="Tech-Enabled Impact Solutions">
+                    </div>
+                    <div class="theme-content">
+                        <h3>Tech-Enabled Impact Solutions</h3>
+                        <p>Leveraging technology to amplify social impact and create scalable solutions for underserved communities.</p>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-image">
+                        <img src="assets/images/theme-community.png" alt="Community Development">
+                    </div>
+                    <div class="theme-content">
+                        <h3>Community Development</h3>
+                        <p>Building stronger, self-sustaining communities through collaborative approaches and grassroots engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <h2 class="section-title">Hackathon at a Glance</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Participants" class="stat-icon">
+                    <span class="stat-number" data-target="545">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Participants</span>
+                </div>
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Centres" class="stat-icon">
+                    <span class="stat-number" data-target="46">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Centres</span>
+                </div>
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Beneficiaries" class="stat-icon">
+                    <span class="stat-number" data-target="250000">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Beneficiaries</span>
+                </div>
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Volunteers" class="stat-icon">
+                    <span class="stat-number" data-target="7000">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Volunteers</span>
+                </div>
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Mentorship Sessions" class="stat-icon">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Mentorship Sessions</span>
+                </div>
+                <div class="stat-card">
+                    <img src="assets/images/stat-icon.png" alt="Finalist Teams" class="stat-icon">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-suffix"></span>
+                    <span class="stat-label">Finalist Teams</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Timeline & Event Flow</h2>
+            <div class="timeline-visual">
+                <img src="assets/images/timeline-flow.png" alt="SAMADHAN Timeline Flow" class="timeline-img">
+            </div>
+            <div class="timeline-phases">
+                <div class="phase-card">
+                    <div class="phase-number">01</div>
+                    <h3>Nationwide Participation</h3>
+                    <p>Open call for innovative solutions from students across India</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">02</div>
+                    <h3>50 Teams Shortlisted</h3>
+                    <p>Top ideas selected for mentorship and development phase</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">03</div>
+                    <h3>15 Finalist Teams</h3>
+                    <p>Best solutions advance to the Grand Finale at IIT Delhi</p>
+                </div>
+            </div>
+            
+            <div class="finale-schedule">
+                <h3 class="schedule-title">Finale Day Schedule – 4 January 2026</h3>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <span class="schedule-time">08:30 AM</span>
+                        <span class="schedule-event">Registration & Check-in</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">09:00 AM</span>
+                        <span class="schedule-event">Inauguration Ceremony</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">09:30 AM</span>
+                        <span class="schedule-event">Keynote Address</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">10:00 AM</span>
+                        <span class="schedule-event">Team Presentations Begin</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">01:00 PM</span>
+                        <span class="schedule-event">Lunch Break & Networking</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">02:00 PM</span>
+                        <span class="schedule-event">Presentations Continue</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">04:30 PM</span>
+                        <span class="schedule-event">Jury Deliberation</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">05:30 PM</span>
+                        <span class="schedule-event">Awards Ceremony & Closing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guest Speakers Section -->
+    <section id="speakers" class="speakers-section">
+        <div class="container">
+            <h2 class="section-title">Guest Speakers</h2>
+            <p class="section-subtitle">Distinguished leaders sharing insights and inspiration</p>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <img src="assets/images/speaker-photo.png" alt="Guest Speaker">
+                    </div>
+                    <div class="speaker-info">
+                        <h4>Speaker Name</h4>
+                        <p class="speaker-title">Designation</p>
+                        <p class="speaker-org">Organization</p>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <img src="assets/images/speaker-photo.png" alt="Guest Speaker">
+                    </div>
+                    <div class="speaker-info">
+                        <h4>Speaker Name</h4>
+                        <p class="speaker-title">Designation</p>
+                        <p class="speaker-org">Organization</p>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <img src="assets/images/speaker-photo.png" alt="Guest Speaker">
+                    </div>
+                    <div class="speaker-info">
+                        <h4>Speaker Name</h4>
+                        <p class="speaker-title">Designation</p>
+                        <p class="speaker-org">Organization</p>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <img src="assets/images/speaker-photo.png" alt="Guest Speaker">
+                    </div>
+                    <div class="speaker-info">
+                        <h4>Speaker Name</h4>
+                        <p class="speaker-title">Designation</p>
+                        <p class="speaker-org">Organization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentors Section -->
+    <section id="mentors" class="mentors-section">
+        <div class="container">
+            <h2 class="section-title">Our Mentors</h2>
+            <p class="section-subtitle">Industry experts guiding the next generation of changemakers</p>
+            <div class="mentors-grid"></div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <img src="assets/images/mentor-photo.png" alt="Mentor">
+                    </div>
+                    <div class="mentor-info">
+                        <h4>Mentor Name</h4>
+                        <p>Designation / Organization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Partners & Stakeholders</h2>
+            <div class="partners-category">
+                <h3>Organizing Partner</h3>
+                <div class="partners-logos">
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="UPAY NGO">
+                        <span>UPAY NGO</span>
+                    </div>
+                </div>
+            </div>
+            <div class="partners-category">
+                <h3>Incubators & Collaborators</h3>
+                <div class="partners-logos">
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="Partner">
+                        <span>Partner Name</span>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="Partner">
+                        <span>Partner Name</span>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="Partner">
+                        <span>Partner Name</span>
+                    </div>
+                </div>
+            </div>
+            <div class="partners-category">
+                <h3>CSR & Institutional Partners</h3>
+                <div class="partners-logos">
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="Partner">
+                        <span>Partner Name</span>
+                    </div>
+                    <div class="partner-logo">
+                        <img src="assets/images/partner-logo.png" alt="Partner">
+                        <span>Partner Name</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video" class="video-section">
+        <div class="container">
+            <h2 class="section-title">Watch Our Story</h2>
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <img src="assets/images/video-thumbnail.png" alt="SAMADHAN Video Thumbnail" class="video-thumbnail">
+                    <button class="play-btn" aria-label="Play video">
+                        <span class="play-icon">▶</span>
+                    </button>
+                </div>
+                <p class="video-caption">Discover how SAMADHAN is transforming communities through innovation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prize Pool Section -->
+    <section id="prizes" class="prizes-section">
+        <div class="container">
+            <h2 class="section-title">Prize Pool</h2>
+            <div class="prize-showcase">
+                <img src="assets/images/prize-icon.png" alt="Prize Icon" class="prize-icon">
+                <div class="prize-amount">
+                    <span class="prize-currency">₹</span>
+                    <span class="prize-value">Exciting Prizes</span>
+                </div>
+                <p class="prize-description">Cash prizes, incubation support, mentorship opportunities, and more for winning teams</p>
+            </div>
+            <div class="prize-tiers">
+                <div class="prize-tier">
+                    <span class="tier-medal">🥇</span>
+                    <h4>First Prize</h4>
+                    <p>Cash Prize + Incubation Support</p>
+                </div>
+                <div class="prize-tier">
+                    <span class="tier-medal">🥈</span>
+                    <h4>Second Prize</h4>
+                    <p>Cash Prize + Mentorship</p>
+                </div>
+                <div class="prize-tier">
+                    <span class="tier-medal">🥉</span>
+                    <h4>Third Prize</h4>
+                    <p>Cash Prize + Recognition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submission Guidelines Section -->
+    <section id="submission" class="submission-section">
+        <div class="container">
+            <h2 class="section-title">Final Submission Guidelines</h2>
+            <div class="submission-content">
+                <div class="deadline-banner">
+                    <span class="deadline-icon">⏰</span>
+                    <div class="deadline-info">
+                        <h3>Submission Deadline</h3>
+                        <p class="deadline-date">28 December 2025</p>
+                    </div>
+                </div>
+                
+                <div class="guidelines-grid">
+                    <div class="guideline-card">
+                        <h4>📄 Required Documents</h4>
+                        <ul>
+                            <li>Presentation (PPT/PPTX format)</li>
+                            <li>Executive Summary (PDF)</li>
+                            <li>Detailed Solution Document</li>
+                        </ul>
+                    </div>
+                    <div class="guideline-card">
+                        <h4>💻 Prototype/MVP</h4>
+                        <ul>
+                            <li>Working prototype or MVP</li>
+                            <li>Demo video (max 5 minutes)</li>
+                            <li>Technical documentation</li>
+                        </ul>
+                    </div>
+                    <div class="guideline-card">
+                        <h4>🎤 Finale Presentation</h4>
+                        <ul>
+                            <li>10-minute presentation slot</li>
+                            <li>5-minute Q&A with jury</li>
+                            <li>Live demo encouraged</li>
+                        </ul>
+                    </div>
+                    <div class="guideline-card warning">
+                        <h4>⚠️ Late Submission</h4>
+                        <ul>
+                            <li>Late submissions may be penalized</li>
+                            <li>Incomplete submissions may be disqualified</li>
+                            <li>Contact organizers for extensions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact-section">
+        <div class="container">
+            <h2 class="section-title">Our Impact</h2>
+            <div class="impact-content">
+                <div class="impact-image">
+                    <img src="assets/images/impact-illustration.png" alt="SAMADHAN Impact Illustration">
+                </div>
+                <div class="impact-text">
+                    <div class="impact-item">
+                        <h4>🌱 Grassroots Innovation</h4>
+                        <p>Empowering local communities with innovative solutions designed to address their unique challenges and opportunities.</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>🤝 NGO–Student Collaboration</h4>
+                        <p>Building bridges between academic institutions and grassroots organizations to create meaningful, lasting change.</p>
+                    </div>
+                    <div class="impact-item">
+                        <h4>📈 Scalable Social Solutions</h4>
+                        <p>Developing solutions that can be replicated and scaled across communities, maximizing social impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.png" alt="UPAY NGO Logo" class="footer-logo">
+                    <h3>SAMADHAN 2025–26</h3>
+                    <p>A National Social Innovation Challenge by UPAY NGO</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#themes">Themes</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#submission">Submission</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p>Email: samadhan@upay.org.in</p>
+                    <p>Website: www.upay.org.in</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 UPAY NGO. All Rights Reserved.</p>
+                <p>Fueling Ideas | Powering Action | Changing Lives</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
