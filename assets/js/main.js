@@ -178,4 +178,39 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Video player would open here. Replace with actual YouTube embed or video player.');
         });
     }
+
+    // Interactive Timeline
+    const timelinePhases = document.querySelectorAll('.timeline-phase');
+    timelinePhases.forEach(phase => {
+        const details = phase.querySelector('.phase-details');
+        
+        // Initially hide details using CSS properties for transition
+        details.style.opacity = '0';
+        details.style.visibility = 'hidden';
+        details.style.transform = 'translateY(10px)'; // Start slightly below
+
+        phase.addEventListener('mouseenter', () => {
+            details.style.opacity = '1';
+            details.style.visibility = 'visible';
+            details.style.transform = 'translateY(0)';
+        });
+
+        phase.addEventListener('mouseleave', () => {
+            details.style.opacity = '0';
+            details.style.visibility = 'hidden';
+            details.style.transform = 'translateY(10px)';
+        });
+
+        if (phase.classList.contains('finale-phase')) {
+            const scheduleButton = phase.querySelector('.view-schedule-btn');
+            if (scheduleButton) {
+                scheduleButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(scheduleButton.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        }
+    });
 });
