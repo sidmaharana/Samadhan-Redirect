@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
-    
+
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Countdown Timer - Finale: 4 January 2026, 9:00 AM IST
     const countdownDate = new Date('January 4, 2026 09:00:00 GMT+0530').getTime();
     let celebrationTriggered = false;
-    
+
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = countdownDate - now;
@@ -44,15 +44,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if(daysEl) daysEl.textContent = String(days).padStart(2, '0');
+            if(hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+            if(minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+            if(secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+
         } else {
-            document.getElementById('days').textContent = '00';
-            document.getElementById('hours').textContent = '00';
-            document.getElementById('minutes').textContent = '00';
-            document.getElementById('seconds').textContent = '00';
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if(daysEl) daysEl.textContent = '00';
+            if(hoursEl) hoursEl.textContent = '00';
+            if(minutesEl) minutesEl.textContent = '00';
+            if(secondsEl) secondsEl.textContent = '00';
             
             // Trigger celebration animation only once
             if (!celebrationTriggered) {
@@ -61,6 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
+    if (document.getElementById('days')) {
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+
 
     function triggerCelebration() {
         // Add celebration class to countdown section
@@ -71,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Create confetti elements
         createConfetti();
-        
+
         // Add pulsing animation to countdown timer
         const countdownTimer = document.getElementById('countdownTimer');
         if (countdownTimer) {
@@ -80,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show celebration message
         showCelebrationMessage();
-        
+
         // Remove celebration effects after 10 seconds
         setTimeout(() => {
             if (countdownSection) {
@@ -164,9 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
     // Image Carousel
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
@@ -176,12 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let autoSlideInterval;
 
     function showSlide(index) {
-        if (index >= slides.length) currentSlide = 0;
-        if (index < 0) currentSlide = slides.length - 1;
-        
+        if (slides.length === 0) return;
+        currentSlide = (index + slides.length) % slides.length;
+
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
-        
+
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
     }
@@ -205,20 +219,23 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoSlide();
     }
 
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
-        nextBtn.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
+    if (slides.length > 0) {
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
+            nextBtn.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+                resetAutoSlide();
+            });
+        });
+
+        startAutoSlide();
     }
 
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            showSlide(currentSlide);
-            resetAutoSlide();
-        });
-    });
-
-    startAutoSlide();
 
     // Statistics Counter Animation
     const statNumbers = document.querySelectorAll('.stat-number');
@@ -228,31 +245,24 @@ document.addEventListener('DOMContentLoaded', function() {
         statNumbers.forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
             const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
+            let start = 0;
+            const stepTime = 16; // roughly 60fps
+            const steps = duration / stepTime;
+            const increment = target / steps;
 
             const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    if (target >= 1000) {
-                        stat.textContent = Math.floor(current).toLocaleString();
-                    } else {
-                        stat.textContent = Math.floor(current);
-                    }
+                start += increment;
+                if (start < target) {
+                    stat.textContent = Math.floor(start).toLocaleString();
                     requestAnimationFrame(updateCounter);
                 } else {
-                    if (target >= 1000) {
-                        stat.textContent = target.toLocaleString();
-                    } else {
-                        stat.textContent = target;
-                    }
+                    stat.textContent = target.toLocaleString();
                 }
             };
             updateCounter();
         });
     }
 
-    // Intersection Observer for stats animation
     const statsSection = document.getElementById('stats');
     if (statsSection) {
         const observer = new IntersectionObserver((entries) => {
@@ -270,7 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
             if (target) {
                 const headerOffset = 80;
                 const elementPosition = target.getBoundingClientRect().top;
@@ -288,38 +299,247 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Interactive Timeline
-    const timelinePhases = document.querySelectorAll('.timeline-phase');
-    timelinePhases.forEach(phase => {
-        const details = phase.querySelector('.phase-details');
+    // Hero Banner Turbulent Dissolve Animation
+    const heroImages = document.querySelectorAll('.hero-bg-image');
+    let currentImageIndex = 0;
+    let isTransitioning = false;
+
+    // Set initial background images
+    heroImages.forEach((image, index) => {
+        const bgImage = image.getAttribute('data-bg');
+        image.style.backgroundImage = `url('${bgImage}')`;
+    });
+
+    function transitionToNextImage() {
+        if (isTransitioning || heroImages.length <= 1) return;
         
-        // Initially hide details using CSS properties for transition
-        details.style.opacity = '0';
-        details.style.visibility = 'hidden';
-        details.style.transform = 'translateY(10px)'; // Start slightly below
+        isTransitioning = true;
+        const currentImage = heroImages[currentImageIndex];
+        const nextIndex = (currentImageIndex + 1) % heroImages.length;
+        const nextImage = heroImages[nextIndex];
 
-        phase.addEventListener('mouseenter', () => {
-            details.style.opacity = '1';
-            details.style.visibility = 'visible';
-            details.style.transform = 'translateY(0)';
+        // Reset any previous states
+        heroImages.forEach(img => {
+            img.classList.remove('dissolving');
+            if (img !== currentImage && img !== nextImage) {
+                img.style.opacity = '0';
+                img.classList.remove('active');
+            }
         });
 
-        phase.addEventListener('mouseleave', () => {
-            details.style.opacity = '0';
-            details.style.visibility = 'hidden';
-            details.style.transform = 'translateY(10px)';
+        // Prepare next image underneath (immediate, no animation)
+        nextImage.style.opacity = '1';
+        nextImage.style.zIndex = '2';
+        nextImage.classList.add('active');
+        
+        // Set current image on top and start smooth dissolve
+        currentImage.style.zIndex = '3';
+        
+        // Use requestAnimationFrame for smoother animation start
+        requestAnimationFrame(() => {
+            currentImage.classList.add('dissolving');
         });
 
-        if (phase.classList.contains('finale-phase')) {
-            const scheduleButton = phase.querySelector('.view-schedule-btn');
-            if (scheduleButton) {
-                scheduleButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.querySelector(scheduleButton.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        // Clean up after animation completes
+        setTimeout(() => {
+            currentImage.classList.remove('active', 'dissolving');
+            currentImage.style.opacity = '0';
+            currentImage.style.zIndex = '1';
+            currentImageIndex = nextIndex;
+            isTransitioning = false;
+        }, 5000); // Slightly longer for smoother cleanup
+    }
+
+    // Start automatic transitions
+    function startHeroAnimation() {
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion && heroImages.length > 1) {
+            // Start first transition after initial delay
+            setTimeout(() => {
+                transitionToNextImage();
+                // Continue with regular intervals - smooth timing
+                setInterval(transitionToNextImage, 7000); // 7 seconds between transitions for smoother experience
+            }, 4000); // Initial 4 second delay to let page settle
+        }
+    }
+
+    // Initialize hero animation
+    if (heroImages.length > 0) {
+        startHeroAnimation();
+    }
+
+    // Hero Title Character Animation Enhancement
+    const heroChars = document.querySelectorAll('.hero-title .char');
+    
+    // Add ripple effect on character hover
+    heroChars.forEach((char, index) => {
+        char.addEventListener('mouseenter', () => {
+            // Create ripple effect on nearby characters
+            const nearbyChars = Array.from(heroChars).slice(
+                Math.max(0, index - 2), 
+                Math.min(heroChars.length, index + 3)
+            );
+            
+            nearbyChars.forEach((nearbyChar, nearbyIndex) => {
+                const delay = Math.abs(nearbyIndex - 2) * 50; // Center character has no delay
+                setTimeout(() => {
+                    nearbyChar.style.transform = `translateY(-${5 + Math.random() * 5}px) scale(${1.1 + Math.random() * 0.1})`;
+                    // Only change color on direct hover, not ripple effect
+                    if (nearbyIndex === 2) { // Center character (the one being hovered)
+                        nearbyChar.style.color = `hsl(${45 + Math.random() * 20}, 85%, ${60 + Math.random() * 20}%)`;
+                    }
+                }, delay);
+            });
+        });
+        
+        char.addEventListener('mouseleave', () => {
+            // Reset character to white after hover
+            setTimeout(() => {
+                char.style.transform = '';
+                char.style.color = 'var(--text-light)'; // Reset to white
+            }, 200);
+        });
+        
+        // Add random sparkle effect (keeping white color)
+        if (Math.random() > 0.7) {
+            setTimeout(() => {
+                char.style.animation += ', sparkle 2s ease-in-out infinite';
+            }, 2000 + Math.random() * 3000);
+        }
+    });
+
+    // Add sparkle animation dynamically (white glow)
+    const sparkleKeyframes = `
+        @keyframes sparkle {
+            0%, 100% { 
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 15px rgba(255, 255, 255, 0.3); 
+            }
+            50% { 
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 25px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3); 
+            }
+        }
+    `;
+    
+    // Inject sparkle animation
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = sparkleKeyframes;
+    document.head.appendChild(styleSheet);
+
+    // Hero Tagline and Subtitle Character Animation Enhancement
+    const taglineChars = document.querySelectorAll('.hero-tagline .char');
+    const subtitleChars = document.querySelectorAll('.hero-subtitle .char');
+    
+    // Add subtle hover effects for tagline (no color change)
+    taglineChars.forEach((char, index) => {
+        char.addEventListener('mouseenter', () => {
+            char.style.transform = `translateY(-8px) scale(1.15) rotateZ(${Math.random() * 10 - 5}deg)`;
+        });
+        
+        char.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                char.style.transform = '';
+            }, 150);
+        });
+    });
+    
+    // Add subtle hover effects for subtitle (no color change)
+    subtitleChars.forEach((char, index) => {
+        char.addEventListener('mouseenter', () => {
+            char.style.transform = `translateY(-5px) scale(1.1) rotateZ(${Math.random() * 6 - 3}deg)`;
+        });
+        
+        char.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                char.style.transform = '';
+            }, 150);
+        });
+    });
+
+    // --- NEW, CONSOLIDATED INTERACTIVE TIMELINE LOGIC ---
+    const timeline = document.querySelector('.interactive-timeline');
+    if (timeline) {
+        const timelineContainer = timeline.querySelector('.timeline-container');
+        const phases = Array.from(timeline.querySelectorAll('.timeline-phase'));
+        const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        const deactivateAll = () => {
+            phases.forEach(p => p.classList.remove('is-active'));
+            timeline.classList.remove('timeline-expanded');
+        };
+
+        if (isTouchDevice()) {
+            // TAP/CLICK logic for Touch Devices
+            phases.forEach(phase => {
+                phase.addEventListener('click', (e) => {
+                    // Prevent closing when clicking on links within the details
+                    if (e.target.closest('a') || e.target.closest('button')) {
+                        return;
+                    }
+                    
+                    const wasActive = phase.classList.contains('is-active');
+                    deactivateAll();
+                    if (!wasActive) {
+                        phase.classList.add('is-active');
+                        timeline.classList.add('timeline-expanded');
+                    }
+                });
+            });
+        } else {
+            // HOVER logic for Desktop Devices
+            phases.forEach(phase => {
+                phase.addEventListener('mouseenter', () => {
+                    // Quick deactivation and reactivation to avoid flickering
+                    if (!phase.classList.contains('is-active')) {
+                       deactivateAll();
+                       phase.classList.add('is-active');
+                       timeline.classList.add('timeline-expanded');
+                    }
+                });
+            });
+
+            if (timelineContainer) {
+                timelineContainer.addEventListener('mouseleave', () => {
+                    deactivateAll();
                 });
             }
         }
-    });
+    }
+
+    // Partners Carousel Touch/Mobile Interaction
+    const partnersCarousel = document.querySelector('.partners-carousel');
+    if (partnersCarousel) {
+        let touchStartTime = 0;
+        let isPaused = false;
+
+        // Pause animation on touch/tap for mobile
+        partnersCarousel.addEventListener('touchstart', () => {
+            touchStartTime = Date.now();
+            partnersCarousel.style.animationPlayState = 'paused';
+            isPaused = true;
+        });
+
+        partnersCarousel.addEventListener('touchend', () => {
+            const touchDuration = Date.now() - touchStartTime;
+            // Resume animation after a short delay, unless it was a long press
+            setTimeout(() => {
+                if (isPaused && touchDuration < 2000) {
+                    partnersCarousel.style.animationPlayState = 'running';
+                    isPaused = false;
+                }
+            }, 500);
+        });
+
+        // Handle mouse events for desktop (already handled by CSS :hover)
+        partnersCarousel.addEventListener('mouseenter', () => {
+            partnersCarousel.style.animationPlayState = 'paused';
+        });
+
+        partnersCarousel.addEventListener('mouseleave', () => {
+            partnersCarousel.style.animationPlayState = 'running';
+            isPaused = false;
+        });
+    }
 });
+
