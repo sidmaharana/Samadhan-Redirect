@@ -340,6 +340,82 @@ ul { list-style: none; }
     .deadline-banner { flex-direction: column; text-align: center; }
 }
 
+/* Celebration Animations */
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes celebration-bounce {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes celebration-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes celebration-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(247, 172, 45, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(247, 172, 45, 0.8), 0 0 60px rgba(247, 172, 45, 0.4);
+    }
+}
+
+/* Celebration Active States */
+.celebration-active {
+    animation: celebration-glow 2s ease-in-out infinite;
+}
+
+.celebration-pulse {
+    animation: celebration-pulse 1s ease-in-out infinite;
+}
+
+.celebration-pulse .countdown-item {
+    animation: celebration-pulse 1s ease-in-out infinite;
+    background: linear-gradient(135deg, rgba(247, 172, 45, 0.2), rgba(247, 172, 45, 0.1));
+    border: 2px solid var(--accent);
+}
+
+.celebration-pulse .countdown-value {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(247, 172, 45, 0.5);
+}
+
+.celebration-message h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--accent);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.celebration-message p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
 
 /* Guest Speakers Section */
 .speakers-section { padding: 100px 0; background: var(--text-light); }
@@ -419,6 +495,19 @@ ul { list-style: none; }
 
 .timeline-phase:nth-child(even) .phase-dot {
     left: -18px; /* Adjusted based on new size */
+}
+
+/* Phase 4 specific positioning - move to left side */
+.timeline-phase[data-phase="4"] {
+    left: 0;
+    padding-right: 50px;
+    padding-left: 20px;
+    text-align: right;
+}
+
+.timeline-phase[data-phase="4"] .phase-dot {
+    right: -18px;
+    left: auto;
 }
 
 .phase-dot .phase-number {
