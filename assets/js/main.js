@@ -299,76 +299,148 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Hero Banner Turbulent Dissolve Animation
+    // Hero Banner Animation - No Blank Gaps Between Images
     const heroImages = document.querySelectorAll('.hero-bg-image');
     let currentImageIndex = 0;
-    let isTransitioning = false;
+    let animationInterval;
 
-    // Set initial background images
-    heroImages.forEach((image, index) => {
-        const bgImage = image.getAttribute('data-bg');
-        image.style.backgroundImage = `url('${bgImage}')`;
-    });
+    // Configuration for seamless overlapping transitions
+    const FADE_IN_DURATION = 1500;   // 1.5 seconds fade in
+    const DISPLAY_DURATION = 3000;   // 3 seconds at full opacity
+    const FADE_OUT_DURATION = 1500;  // 1.5 seconds fade out
+    const OVERLAP_TIMING = FADE_IN_DURATION + DISPLAY_DURATION - 500; // Start next image 500ms before current starts fading out
 
-    function transitionToNextImage() {
-        if (isTransitioning || heroImages.length <= 1) return;
-        
-        isTransitioning = true;
-        const currentImage = heroImages[currentImageIndex];
-        const nextIndex = (currentImageIndex + 1) % heroImages.length;
-        const nextImage = heroImages[nextIndex];
-
-        // Reset any previous states
-        heroImages.forEach(img => {
-            img.classList.remove('dissolving');
-            if (img !== currentImage && img !== nextImage) {
-                img.style.opacity = '0';
-                img.classList.remove('active');
+    // Initialize all background images
+    function initializeHeroImages() {
+        heroImages.forEach((image, index) => {
+            const bgImage = image.getAttribute('data-bg');
+            image.style.backgroundImage = `url('${bgImage}')`;
+            
+            // Optimize for smooth transitions
+            image.style.willChange = 'opacity';
+            image.style.backfaceVisibility = 'hidden';
+            image.style.transform = 'translate3d(0, 0, 0)';
+            image.style.filter = 'none';
+            image.style.mixBlendMode = 'normal';
+            image.style.transition = 'none';
+            
+            // All images start at minimum opacity except first
+            if (index === 0) {
+                image.style.opacity = '0.2'; // Start at low opacity, not zero
+                image.style.zIndex = '2';
+                // Start first image fade-in immediately
+                startImageCycle(image, 0);
+            } else {
+                image.style.opacity = '0.2'; // Minimum opacity to prevent gaps
+                image.style.zIndex = '1';
             }
         });
-
-        // Prepare next image underneath (immediate, no animation)
-        nextImage.style.opacity = '1';
-        nextImage.style.zIndex = '2';
-        nextImage.classList.add('active');
-        
-        // Set current image on top and start smooth dissolve
-        currentImage.style.zIndex = '3';
-        
-        // Use requestAnimationFrame for smoother animation start
-        requestAnimationFrame(() => {
-            currentImage.classList.add('dissolving');
-        });
-
-        // Clean up after animation completes
-        setTimeout(() => {
-            currentImage.classList.remove('active', 'dissolving');
-            currentImage.style.opacity = '0';
-            currentImage.style.zIndex = '1';
-            currentImageIndex = nextIndex;
-            isTransitioning = false;
-        }, 5000); // Slightly longer for smoother cleanup
     }
 
-    // Start automatic transitions
-    function startHeroAnimation() {
-        // Check if user prefers reduced motion
+    // Complete fade cycle: fade-in → display → fade-out (but not to zero)
+    function startImageCycle(image, delay = 0) {
+        setTimeout(() => {
+            // Phase 1: Fade in from low to high opacity
+            image.style.zIndex = '3'; // Bring to front during fade-in
+            image.style.transition = `opacity ${FADE_IN_DURATION}ms cubic-bezier(0.4, 0.0, 0.2, 1)`;
+            
+            requestAnimationFrame(() => {
+                image.style.opacity = '1'; // Fade to full opacity
+            });
+
+            // Phase 2: Stay at full opacity
+            setTimeout(() => {
+                // Phase 3: Fade out but not to zero - fade to low opacity
+                image.style.transition = `opacity ${FADE_OUT_DURATION}ms cubic-bezier(0.4, 0.0, 0.2, 1)`;
+                
+                requestAnimationFrame(() => {
+                    image.style.opacity = '0.2'; // Fade to low opacity, not zero
+                });
+
+                // Clean up after fade-out completes
+                setTimeout(() => {
+                    image.style.zIndex = '1'; // Send to back
+                    image.style.transition = 'none';
+                }, FADE_OUT_DURATION + 50);
+
+            }, DISPLAY_DURATION);
+
+        }, delay);
+    }
+
+    // Start the seamless overlapping animation
+    function startSeamlessAnimation() {
+        // Check for reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         
-        if (!prefersReducedMotion && heroImages.length > 1) {
-            // Start first transition after initial delay
-            setTimeout(() => {
-                transitionToNextImage();
-                // Continue with regular intervals - smooth timing
-                setInterval(transitionToNextImage, 7000); // 7 seconds between transitions for smoother experience
-            }, 4000); // Initial 4 second delay to let page settle
+        if (prefersReducedMotion || heroImages.length <= 1) {
+            return;
+        }
+
+        let imageIndex = 0;
+
+        // Start continuous overlapping cycles
+        animationInterval = setInterval(() => {
+            imageIndex = (imageIndex + 1) % heroImages.length;
+            const nextImage = heroImages[imageIndex];
+            
+            // Start next image cycle with overlap to prevent gaps
+            startImageCycle(nextImage, 0);
+            
+        }, OVERLAP_TIMING); // Start next image before current finishes
+    }
+
+    // Cleanup function
+    function stopSeamlessAnimation() {
+        if (animationInterval) {
+            clearInterval(animationInterval);
+            animationInterval = null;
         }
     }
 
-    // Initialize hero animation
+    // Initialize and start animation
     if (heroImages.length > 0) {
-        startHeroAnimation();
+        initializeHeroImages();
+        
+        // Start seamless animation
+        setTimeout(() => {
+            startSeamlessAnimation();
+        }, 100);
     }
+
+    // Performance optimization
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopSeamlessAnimation();
+        } else if (heroImages.length > 1) {
+            setTimeout(() => {
+                initializeHeroImages();
+                startSeamlessAnimation();
+            }, 500);
+        }
+    });
+
+    // Initialize and start animation
+    if (heroImages.length > 0) {
+        initializeHeroImages();
+        
+        // Start seamless animation
+        setTimeout(() => {
+            startSeamlessAnimation();
+        }, 100);
+    }
+
+    // Performance optimization
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopSeamlessAnimation();
+        } else if (heroImages.length > 1) {
+            setTimeout(() => {
+                initializeHeroImages();
+                startSeamlessAnimation();
+            }, 500);
+        }
+    });
 
     // Hero Title Character Animation Enhancement
     const heroChars = document.querySelectorAll('.hero-title .char');
