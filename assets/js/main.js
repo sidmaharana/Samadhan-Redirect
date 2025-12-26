@@ -613,5 +613,21 @@ document.addEventListener('DOMContentLoaded', function() {
             isPaused = false;
         });
     }
+
+    // Theme Read More Functionality
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const description = this.previousElementSibling;
+            if (description && description.classList.contains('theme-description')) {
+                description.classList.toggle('expanded');
+                if (description.classList.contains('expanded')) {
+                    this.textContent = 'Read Less';
+                } else {
+                    this.textContent = 'Read More';
+                }
+            }
+        });
+    });
 });
 
