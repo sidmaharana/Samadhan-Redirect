@@ -272,7 +272,7 @@ ul {
     z-index: 1;
 }
 
-/* Pure Hero Background Images - Absolutely No Lighting Effects */
+/* Simplified Hero Background Images - Deployment Safe */
 .hero-bg-image {
     position: absolute;
     top: 0;
@@ -284,35 +284,23 @@ ul {
     background-repeat: no-repeat;
     opacity: 0;
     z-index: 1;
+    transition: opacity 1.5s ease-in-out;
+    /* Fallback background for loading issues */
+    background-color: #003C64;
+    /* Simplified properties for better compatibility */
     will-change: opacity;
     backface-visibility: hidden;
-    transform: translate3d(0, 0, 0);
-    transition: opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    /* Ensure no filters or blend modes */
-    filter: none !important;
-    mix-blend-mode: normal !important;
-    image-rendering: auto;
 }
 
 .hero-bg-image.active {
     opacity: 1;
-    filter: none !important;
-    mix-blend-mode: normal !important;
+    z-index: 2;
 }
 
-/* Pure opacity transitions only - no other effects */
-.hero-bg-image.fading-out {
-    opacity: 0;
-    transition: opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    filter: none !important;
-    mix-blend-mode: normal !important;
-}
-
-.hero-bg-image.fading-in {
+/* Remove complex animation classes - keep it simple */
+.hero-bg-image:first-child {
     opacity: 1;
-    transition: opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    filter: none !important;
-    mix-blend-mode: normal !important;
+    z-index: 2;
 }
 
 .hero-overlay {
@@ -1144,11 +1132,36 @@ ul {
     }
 }
 
-/* Ensure consistent rendering across all browsers */
-.hero-bg-image {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: optimize-contrast;
+/* Fallback CSS-only hero animation if JavaScript fails */
+@keyframes heroSlideshow {
+    0%, 20% { opacity: 1; }
+    25%, 95% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* Apply CSS animation as fallback */
+.hero-bg-image:nth-child(1) { animation: heroSlideshow 16s infinite 0s; }
+.hero-bg-image:nth-child(2) { animation: heroSlideshow 16s infinite 4s; }
+.hero-bg-image:nth-child(3) { animation: heroSlideshow 16s infinite 8s; }
+.hero-bg-image:nth-child(4) { animation: heroSlideshow 16s infinite 12s; }
+
+/* Disable CSS animation when JavaScript takes over */
+.hero-bg-container.js-active .hero-bg-image {
+    animation: none;
+}
+
+/* Simplified character animation */
+.animate-char {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: charFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes charFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
