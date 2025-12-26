@@ -261,6 +261,7 @@ ul {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-top: 80px; /* Add padding to account for fixed navbar */
 }
 
 .hero-bg-container {
@@ -327,6 +328,20 @@ ul {
     text-align: center;
     padding: 20px;
     max-width: 900px;
+    /* Ensure content is always below the navbar */
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+/* Ensure hero content doesn't overlap navbar on any device */
+@media (max-height: 600px) {
+    .hero {
+        padding-top: 90px;
+    }
+    
+    .hero-content {
+        padding-top: 30px;
+    }
 }
 
 .hero-title {
@@ -347,14 +362,14 @@ ul {
     gap: 0.1em;
 }
 
-/* Specific styling for SAMADHAN word - larger font and more spacing */
+/* Specific styling for SAMADHAN word - larger font and tighter spacing */
 .word-samadhan {
     font-size: 1.8em;
     /* 80% larger than base font size */
-    gap: 0.2em !important;
-    /* Further reduced letter spacing */
-    letter-spacing: 0.08em;
-    /* Reduced additional letter spacing */
+    gap: 0.05em !important;
+    /* Much tighter letter spacing */
+    letter-spacing: -0.02em;
+    /* Negative letter spacing to bring letters closer */
 }
 
 .hero-title .char {
@@ -2434,9 +2449,21 @@ ul {
         padding: 15px 0;
     }
 
+    /* Fix hero section for mobile - prevent text going under navbar */
+    .hero {
+        padding-top: 100px; /* Increased padding for mobile */
+        min-height: calc(100vh - 20px); /* Slight adjustment for better fit */
+    }
+
+    .hero-content {
+        padding: 40px 20px 20px; /* Add top padding to hero content */
+        margin-top: 20px; /* Additional margin to push content down */
+    }
+
     .hero-title {
         font-size: 2.5rem;
         gap: 0.3rem;
+        margin-top: 20px; /* Extra margin for SAMADHAN title */
     }
 
     .hero-title .char {
@@ -2555,9 +2582,20 @@ ul {
 }
 
 @media (max-width: 480px) {
+    /* Additional mobile fixes for very small screens */
+    .hero {
+        padding-top: 120px; /* Even more padding for small screens */
+    }
+
+    .hero-content {
+        padding: 50px 15px 20px; /* More top padding */
+        margin-top: 30px; /* Additional margin */
+    }
+
     .hero-title {
         font-size: 2rem;
         gap: 0.2rem;
+        margin-top: 30px; /* Extra margin to ensure it's below navbar */
     }
 
     .hero-title .char {
