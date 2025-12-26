@@ -1,0 +1,118 @@
+/* Responsive overrides for SAMADHAN site */
+/* Keeps visual design but improves layout on small devices */
+
+:root {
+    --container-padding-mobile: 16px;
+}
+
+/* Make sure images scale and text is readable */
+img, .logo-img { max-width: 100%; height: auto; }
+
+/* Truncate long theme descriptions with a 'read more' behavior */
+.theme-description {
+    max-height: 7.5rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.theme-description.expanded {
+    max-height: none;
+}
+
+/* Mobile-friendly nav */
+@media (max-width: 900px) {
+    .nav-toggle { display: block; }
+
+    .nav-menu {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--primary);
+        flex-direction: column;
+        gap: 0;
+        padding: 14px var(--container-padding-mobile);
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+        z-index: 1200;
+    }
+
+    .nav-menu.active { display: flex; }
+
+    .nav-menu .nav-link {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        font-size: 1rem;
+    }
+
+    .nav-container { padding: 0 var(--container-padding-mobile); }
+
+    .logo-img { height: 40px; }
+    .logo-text { font-size: 1rem; }
+
+    /* Hero scaling */
+    .hero { min-height: 70vh; }
+    .hero-title { font-size: 2.6rem; }
+    .hero-tagline { font-size: 1.2rem; }
+    .hero-subtitle { font-size: 1rem; }
+
+    /* Stack grids into single column for narrow screens */
+    .themes-grid, .vision-grid, .mentors-grid, .stats-grid, .schedule-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .speakers-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .speaker-card {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .theme-card, .mentor-card, .stat-card { align-items: start; }
+
+    .carousel-container { padding: 0 8px; }
+    .carousel-wrapper .carousel-slide img { width: 100%; height: auto; object-fit: cover; }
+
+    .partners-logos, .partners-carousel { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+    .container { padding: 0 var(--container-padding-mobile); }
+}
+
+/* Narrow phones */
+@media (max-width: 480px) {
+    .hero-title { font-size: 1.9rem; }
+    .hero-tagline { font-size: 1rem; }
+    .btn { padding: 10px 16px; font-size: 0.95rem; }
+    .section-title { font-size: 1.5rem; }
+    .logo-text { display: none; }
+    .hero-content { padding: 12px; }
+}
+
+/* Prefer reduced motion: disable heavy animations for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* Improve tap targets */
+.nav-link, .btn { touch-action: manipulation; }
+
+/* Small improvements for readability on medium screens */
+@media (max-width: 1100px) {
+    .container { max-width: 95%; }
+    .section-subtitle { margin-bottom: 2rem; }
+}
+
+/* Ensure the countdown and timer layout fits on small screens */
+.countdown-timer { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.countdown-item { min-width: 64px; }
+
+/* Make sure partner logos are not too large */
+/* .partner-logo img { max-height: 54px; object-fit: contain; } */
+/* Commented out as it was conflicting with responsive adjustments for larger logo sizes. */
