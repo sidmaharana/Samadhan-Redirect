@@ -23,26 +23,108 @@ img, .logo-img { max-width: 100%; height: auto; }
     .nav-toggle { display: block; }
 
     .nav-menu {
-        display: none;
+        display: flex;
         position: fixed;
         top: 64px;
         left: 0;
         right: 0;
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         flex-direction: column;
-        gap: 0;
-        padding: 14px var(--container-padding-mobile);
+        gap: 10px;
+        padding: 25px var(--container-padding-mobile);
         max-height: calc(100vh - 64px);
         overflow-y: auto;
         z-index: 1200;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
     }
 
-    .nav-menu.active { display: flex; }
+    .nav-menu.active { 
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
 
     .nav-menu .nav-link {
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 16px 20px;
+        border-bottom: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        transform: translateX(-20px);
+        opacity: 0;
+        animation: slideInNav 0.5s ease forwards;
+        margin: 0;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(247, 172, 45, 0.4);
+        color: #F7AC2D;
+        position: relative;
+        overflow: hidden;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+
+    .nav-menu .nav-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .nav-menu .nav-link:hover::before {
+        left: 100%;
+    }
+
+    .nav-menu.active .nav-link:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active .nav-link:nth-child(2) { animation-delay: 0.2s; }
+    .nav-menu.active .nav-link:nth-child(3) { animation-delay: 0.3s; }
+    .nav-menu.active .nav-link:nth-child(4) { animation-delay: 0.4s; }
+    .nav-menu.active .nav-link:nth-child(5) { animation-delay: 0.5s; }
+    .nav-menu.active .nav-link:nth-child(6) { animation-delay: 0.6s; }
+
+    .nav-menu .nav-link:hover {
+        background: rgba(247, 172, 45, 0.2);
+        color: #FFFFFF;
+        transform: translateX(0) translateY(-1px);
+        border-radius: 8px;
+        border: 1px solid #F7AC2D;
+        box-shadow: 0 2px 12px rgba(247, 172, 45, 0.3);
+    }
+
+    .nav-menu .nav-link.cta-btn {
+        background: linear-gradient(135deg, #F7AC2D 0%, #d99520 100%);
+        color: var(--primary);
+        margin: 0;
+        padding: 14px 24px;
+        border-radius: 25px;
         font-size: 1rem;
+        border: 1px solid #F7AC2D;
+        box-shadow: 0 3px 12px rgba(247, 172, 45, 0.3);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-height: 50px;
+    }
+
+    .nav-menu .nav-link.cta-btn:hover {
+        background: linear-gradient(135deg, #d99520 0%, #F7AC2D 100%);
+        transform: translateX(0) translateY(-2px);
+        box-shadow: 0 4px 16px rgba(247, 172, 45, 0.4);
+        border: 1px solid #FFFFFF;
+        color: var(--primary);
     }
 
     .nav-container { padding: 0 var(--container-padding-mobile); }
@@ -51,7 +133,10 @@ img, .logo-img { max-width: 100%; height: auto; }
     .logo-text { font-size: 1rem; }
 
     /* Hero scaling */
-    .hero { min-height: 70vh; }
+    .hero { 
+        min-height: 70vh; 
+        padding-top: 80px; /* Add padding to account for fixed navbar */
+    }
     .hero-title { font-size: 2.6rem; }
     .hero-tagline { font-size: 1.2rem; }
     .hero-subtitle { font-size: 1rem; }
@@ -87,12 +172,32 @@ img, .logo-img { max-width: 100%; height: auto; }
 
 /* Narrow phones */
 @media (max-width: 480px) {
+    .hero { padding-top: 70px; } /* Ensure hero content doesn't go under navbar on small phones */
     .hero-title { font-size: 1.9rem; }
     .hero-tagline { font-size: 1rem; }
     .btn { padding: 10px 16px; font-size: 0.95rem; }
     .section-title { font-size: 1.5rem; }
     .logo-text { display: none; }
     .hero-content { padding: 12px; }
+    
+    /* Enhanced mobile nav for small phones */
+    .nav-menu {
+        gap: 8px;
+        padding: 20px var(--container-padding-mobile);
+    }
+    
+    .nav-menu .nav-link {
+        font-size: 1rem;
+        padding: 14px 16px;
+        min-height: 44px;
+    }
+    
+    .nav-menu .nav-link.cta-btn {
+        font-size: 0.95rem;
+        padding: 12px 20px;
+        min-height: 46px;
+        letter-spacing: 0.3px;
+    }
 }
 
 /* Prefer reduced motion: disable heavy animations for accessibility */
@@ -116,3 +221,38 @@ img, .logo-img { max-width: 100%; height: auto; }
 /* Make sure partner logos are not too large */
 /* .partner-logo img { max-height: 54px; object-fit: contain; } */
 /* Commented out as it was conflicting with responsive adjustments for larger logo sizes. */
+
+/* Mobile navigation animations */
+@keyframes slideInNav {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Enhanced mobile nav toggle animation */
+@media (max-width: 900px) {
+    .nav-toggle {
+        transition: transform 0.3s ease;
+    }
+    
+    .nav-toggle:hover {
+        transform: scale(1.1);
+    }
+    
+    .nav-toggle.active .hamburger {
+        transform: rotate(45deg);
+    }
+    
+    .nav-toggle.active .hamburger::before {
+        transform: rotate(90deg) translate(-8px, 0);
+    }
+    
+    .nav-toggle.active .hamburger::after {
+        opacity: 0;
+    }
+}

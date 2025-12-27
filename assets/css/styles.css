@@ -363,10 +363,10 @@ ul {
 .word-samadhan {
     font-size: 1.8em;
     /* 80% larger than base font size */
-    gap: 0.2em !important;
-    /* Further reduced letter spacing */
-    letter-spacing: 0.08em;
-    /* Reduced additional letter spacing */
+    gap: 0.05em !important;
+    /* Significantly reduced letter spacing */
+    letter-spacing: 0.02em;
+    /* Minimal additional letter spacing */
 }
 
 .hero-title .char {
@@ -477,37 +477,16 @@ ul {
 
 /* Continuous subtle animation - keeps white color */
 .hero-title .char {
-    animation: charReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
-        charFloat 4s ease-in-out infinite;
+    animation: charReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-@keyframes charFloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotateX(0deg) scale(1);
-    }
-
-    25% {
-        transform: translateY(-2px) rotateX(1deg) scale(1.01);
-    }
-
-    50% {
-        transform: translateY(-4px) rotateX(0deg) scale(1.02);
-    }
-
-    75% {
-        transform: translateY(-2px) rotateX(-1deg) scale(1.01);
-    }
-}
-
-/* Add different float delays for organic movement */
+/* Add different animation delays for organic movement */
 .char:nth-child(odd) {
-    animation-delay: 0s, 0s;
+    animation-delay: 0s;
 }
 
 .char:nth-child(even) {
-    animation-delay: 0s, 2s;
+    animation-delay: 0s;
 }
 
 /* Special styling for the dash - also white initially */
@@ -570,23 +549,23 @@ ul {
     transform: translateY(30px) rotateY(90deg);
     animation: taglineCharReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     text-shadow:
-        /* Multiple black outlines for strong definition */
-        3px 3px 0px rgba(0, 0, 0, 1),
-        -3px -3px 0px rgba(0, 0, 0, 1),
-        3px -3px 0px rgba(0, 0, 0, 1),
-        -3px 3px 0px rgba(0, 0, 0, 1),
-        2px 2px 0px rgba(0, 0, 0, 1),
-        -2px -2px 0px rgba(0, 0, 0, 1),
-        2px -2px 0px rgba(0, 0, 0, 1),
-        -2px 2px 0px rgba(0, 0, 0, 1),
-        1px 1px 0px rgba(0, 0, 0, 1),
-        -1px -1px 0px rgba(0, 0, 0, 1),
-        1px -1px 0px rgba(0, 0, 0, 1),
-        -1px 1px 0px rgba(0, 0, 0, 1),
+        /* Multiple #333652 outlines for strong definition */
+        3px 3px 0px #333652,
+        -3px -3px 0px #333652,
+        3px -3px 0px #333652,
+        -3px 3px 0px #333652,
+        2px 2px 0px #333652,
+        -2px -2px 0px #333652,
+        2px -2px 0px #333652,
+        -2px 2px 0px #333652,
+        1px 1px 0px #333652,
+        -1px -1px 0px #333652,
+        1px -1px 0px #333652,
+        -1px 1px 0px #333652,
         /* Strong drop shadows */
-        4px 4px 8px rgba(0, 0, 0, 1),
-        0 0 16px rgba(0, 0, 0, 0.9),
-        0 0 32px rgba(0, 0, 0, 0.8),
+        4px 4px 8px rgba(51, 54, 82, 1),
+        0 0 16px rgba(51, 54, 82, 0.9),
+        0 0 32px rgba(51, 54, 82, 0.8),
         /* White glow for extra visibility */
         0 0 40px rgba(255, 255, 255, 0.6),
         0 0 60px rgba(255, 255, 255, 0.4);
@@ -643,19 +622,19 @@ ul {
     transform: translateY(20px) rotateX(45deg);
     animation: subtitleCharReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     text-shadow:
-        /* Strong black outline that stays within alphabet boundaries */
-        2px 2px 0px rgba(0, 0, 0, 1),
-        -2px -2px 0px rgba(0, 0, 0, 1),
-        2px -2px 0px rgba(0, 0, 0, 1),
-        -2px 2px 0px rgba(0, 0, 0, 1),
-        1px 1px 0px rgba(0, 0, 0, 1),
-        -1px -1px 0px rgba(0, 0, 0, 1),
-        1px -1px 0px rgba(0, 0, 0, 1),
-        -1px 1px 0px rgba(0, 0, 0, 1),
+        /* Strong #333652 outline that stays within alphabet boundaries */
+        2px 2px 0px #333652,
+        -2px -2px 0px #333652,
+        2px -2px 0px #333652,
+        -2px 2px 0px #333652,
+        1px 1px 0px #333652,
+        -1px -1px 0px #333652,
+        1px -1px 0px #333652,
+        -1px 1px 0px #333652,
         /* Strong drop shadows for depth */
-        3px 3px 6px rgba(0, 0, 0, 1),
-        0 0 12px rgba(0, 0, 0, 0.8),
-        0 0 24px rgba(0, 0, 0, 0.6),
+        3px 3px 6px rgba(51, 54, 82, 1),
+        0 0 12px rgba(51, 54, 82, 0.8),
+        0 0 24px rgba(51, 54, 82, 0.6),
         /* White glow for extra visibility */
         0 0 30px rgba(255, 255, 255, 0.5),
         0 0 40px rgba(255, 255, 255, 0.3);
@@ -708,51 +687,13 @@ ul {
     transform: translateY(-5px) scale(1.1) rotateZ(-3deg);
 }
 
-/* Continuous floating animations */
+/* Continuous animations */
 .hero-tagline .char {
-    animation: taglineCharReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
-        taglineFloat 5s ease-in-out infinite;
+    animation: taglineCharReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .hero-subtitle .char {
-    animation: subtitleCharReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
-        subtitleFloat 6s ease-in-out infinite;
-}
-
-@keyframes taglineFloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotateY(0deg) scale(1);
-    }
-
-    25% {
-        transform: translateY(-1px) rotateY(1deg) scale(1.005);
-    }
-
-    50% {
-        transform: translateY(-2px) rotateY(0deg) scale(1.01);
-    }
-
-    75% {
-        transform: translateY(-1px) rotateY(-1deg) scale(1.005);
-    }
-}
-
-@keyframes subtitleFloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotateX(0deg) scale(1);
-    }
-
-    33% {
-        transform: translateY(-1px) rotateX(0.5deg) scale(1.003);
-    }
-
-    66% {
-        transform: translateY(-1.5px) rotateX(-0.5deg) scale(1.006);
-    }
+    animation: subtitleCharReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Staggered animation delays for tagline */
@@ -2859,6 +2800,8 @@ ul {
     margin-bottom: 20px;
     position: relative;
     z-index: 2;
+    height: fit-content;
+    align-self: start;
 }
 
 .phase-dot {
