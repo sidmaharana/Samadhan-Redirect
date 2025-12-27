@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: samadhan-redirect
-    env: static
-    plan: pro
-    buildCommand: 'npm install'
-    staticPublishPath: public
