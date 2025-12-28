@@ -1930,6 +1930,14 @@ ul {
     box-shadow: 0 15px 50px var(--shadow);
 }
 
+.story-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 16px;
+}
+
 .video-thumbnail {
     width: 100%;
     aspect-ratio: 16/9;
@@ -1942,9 +1950,9 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: var(--accent);
+    width: 90px;
+    height: 90px;
+    background: rgba(0, 60, 100, 0.8);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -1952,11 +1960,26 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 .play-btn:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 30px rgba(247, 172, 45, 0.5);
+    background: rgba(0, 60, 100, 0.95);
+}
+
+.play-triangle {
+    width: 0;
+    height: 0;
+    border-left: 24px solid var(--accent);
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    margin-left: 6px;
+}
+
+.video-container.playing .play-btn {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .play-icon {
@@ -2466,6 +2489,25 @@ ul {
         height: 350px;
     }
 
+    .slide-caption {
+        padding: 20px 15px 15px;
+    }
+
+    .slide-caption h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .slide-caption p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .carousel-btn {
+        font-size: 1.5rem;
+        padding: 10px 15px;
+    }
+
     /* Hero mobile optimizations */
     .hero-bg-image.dissolving {
         animation-duration: 4s;
@@ -2536,6 +2578,25 @@ ul {
 
     .carousel-wrapper {
         height: 280px;
+    }
+
+    .slide-caption {
+        padding: 15px 12px 12px;
+    }
+
+    .slide-caption h3 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .slide-caption p {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+
+    .carousel-btn {
+        font-size: 1.2rem;
+        padding: 8px 12px;
     }
 
     .deadline-banner {
@@ -2964,5 +3025,24 @@ ul {
     /* Remove specific gap for Phase 4 on mobile */
     .timeline-phase[data-phase="4"] .phase-details {
         margin-right: 0;
+    }
+}
+
+
+/* Lazy Loading Image Styles */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+img[loading="lazy"].loaded,
+img[loading="lazy"]:not([data-src]) {
+    opacity: 1;
+}
+
+/* Ensure images show even without JS */
+@media (scripting: none) {
+    img[loading="lazy"] {
+        opacity: 1;
     }
 }

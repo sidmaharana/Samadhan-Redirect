@@ -291,11 +291,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Video play button (placeholder functionality)
-    const playBtn = document.querySelector('.play-btn');
-    if (playBtn) {
-        playBtn.addEventListener('click', () => {
-            alert('Video player would open here. Replace with actual YouTube embed or video player.');
+    // Video play button functionality
+    const videoPlayBtn = document.getElementById('videoPlayBtn');
+    const storyVideo = document.getElementById('storyVideo');
+    const videoContainer = document.querySelector('.video-container');
+    
+    if (videoPlayBtn && storyVideo) {
+        videoPlayBtn.addEventListener('click', () => {
+            videoContainer.classList.add('playing');
+            storyVideo.controls = true;
+            storyVideo.play();
+        });
+        
+        storyVideo.addEventListener('pause', () => {
+            if (storyVideo.currentTime === 0 || storyVideo.ended) {
+                videoContainer.classList.remove('playing');
+            }
+        });
+        
+        storyVideo.addEventListener('ended', () => {
+            videoContainer.classList.remove('playing');
+            storyVideo.currentTime = 0;
         });
     }
 
@@ -631,3 +647,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+    // Lazy Loading Images with Intersection Observer
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // Preload hero background images
+    const heroBackgrounds = document.querySelectorAll('.hero-bg-image[data-bg]');
+    heroBackgrounds.forEach((el, index) => {
+        const bgUrl = el.getAttribute('data-bg');
+        if (index === 0) {
+            // Load first image immediately
+            el.style.backgroundImage = `url('${bgUrl}')`;
+            el.classList.add('active');
+        } else {
+            // Preload other images in background
+            const img = new Image();
+            img.src = bgUrl;
+            img.onload = () => {
+                el.style.backgroundImage = `url('${bgUrl}')`;
+            };
+        }
+    });
