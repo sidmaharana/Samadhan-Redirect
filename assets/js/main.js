@@ -688,3 +688,86 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         }
     });
+// Image Optimization and Lazy Loading
+document.addEventListener('DOMContentLoaded', function() {
+    // Add lazy loading to images that don't have it (except hero animation images and carousel images)
+    const imagesToLazyLoad = document.querySelectorAll('img:not([loading]):not(.hero-bg-image):not(.logo-img):not(.carousel-slide img)');
+    
+    imagesToLazyLoad.forEach(img => {
+        // Skip if it's a hero animation image or carousel image
+        const src = img.getAttribute('src');
+        if (src && !src.includes('hero-bg') && !src.includes('hero-banner') && !src.includes('slider-')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+
+    // Intersection Observer for better lazy loading support (exclude carousel images)
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        // Observe all lazy images except carousel images
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]:not(.carousel-slide img)');
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // Ensure carousel images are immediately visible
+    const carouselImages = document.querySelectorAll('.carousel-slide img');
+    carouselImages.forEach(img => {
+        img.classList.add('loaded');
+        img.style.opacity = '1';
+    });
+
+    // WebP support detection
+    function supportsWebP() {
+        return new Promise(resolve => {
+            const webP = new Image();
+            webP.onload = webP.onerror = () => {
+                resolve(webP.height === 2);
+            };
+            webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+        });
+    }
+
+    // Add WebP class to body if supported
+    supportsWebP().then(supported => {
+        if (supported) {
+            document.body.classList.add('webp');
+        }
+    });
+
+    // Preload critical images (non-hero)
+    const criticalImages = [
+        'assets/images/logo.png',
+        'assets/images/slider-01.png'
+    ];
+
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+
+    // Image error handling and fallback
+    document.addEventListener('error', function(e) {
+        if (e.target.tagName === 'IMG') {
+            const img = e.target;
+            // Don't apply fallback to hero animation images
+            if (!img.src.includes('hero-bg') && !img.src.includes('hero-banner')) {
+                img.style.display = 'none';
+                console.warn('Image failed to load:', img.src);
+            }
+        }
+    }, true);
+});

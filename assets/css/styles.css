@@ -1427,6 +1427,7 @@ ul {
 .theme-description {
     display: -webkit-box;
     -webkit-line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1435,6 +1436,7 @@ ul {
 
 .theme-description.expanded {
     -webkit-line-clamp: unset;
+    line-clamp: unset;
     display: block;
 }
 
@@ -3029,14 +3031,14 @@ ul {
 }
 
 
-/* Lazy Loading Image Styles */
-img[loading="lazy"] {
+/* Lazy Loading Image Styles - Consolidated */
+img[loading="lazy"]:not(.carousel-slide img) {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 
-img[loading="lazy"].loaded,
-img[loading="lazy"]:not([data-src]) {
+img[loading="lazy"].loaded:not(.carousel-slide img),
+img[loading="lazy"]:not([data-src]):not(.carousel-slide img) {
     opacity: 1;
 }
 
@@ -3045,4 +3047,97 @@ img[loading="lazy"]:not([data-src]) {
     img[loading="lazy"] {
         opacity: 1;
     }
+}
+/* Image Optimization for Better Loading Performance */
+/* Compress and optimize all images except hero animation backgrounds */
+
+/* Lazy loading support - Fixed for carousel compatibility */
+img[loading="lazy"]:not(.carousel-slide img) {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded:not(.carousel-slide img) {
+    opacity: 1;
+}
+
+/* Ensure carousel images are always visible */
+.carousel-slide img {
+    opacity: 1 !important;
+}
+
+/* Optimize carousel images */
+.carousel-slide img {
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Optimize mentor and speaker photos */
+.mentor-image img,
+.speaker-image img {
+    image-rendering: auto;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Optimize partner logos */
+.partner-logo img {
+    max-width: 120px;
+    max-height: 60px;
+    object-fit: contain;
+    image-rendering: auto;
+}
+
+/* Optimize theme images */
+.theme-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    image-rendering: auto;
+}
+
+/* Optimize stat icons */
+.stat-icon {
+    max-width: 60px;
+    max-height: 60px;
+    object-fit: contain;
+    image-rendering: auto;
+}
+
+/* WebP support detection and fallback - Removed problematic content override */
+/* WebP images should be handled by server-side or build process */
+
+/* Responsive image sizing for mobile */
+@media (max-width: 768px) {
+    .mentor-image img,
+    .speaker-image img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+    
+    .partner-logo img {
+        max-width: 100px;
+        max-height: 50px;
+    }
+    
+    .stat-icon {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+/* Preload critical images */
+.hero-bg-image {
+    /* Keep hero animation images at full quality */
+    image-rendering: auto;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Image compression hints for browsers */
+img:not(.hero-bg-image):not(.logo-img) {
+    /* Apply compression to all images except hero backgrounds and main logo */
+    image-rendering: auto;
+    image-rendering: crisp-edges;
 }
